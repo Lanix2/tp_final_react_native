@@ -1,5 +1,5 @@
 import React from "react";
-import TextInput  from "react-native";
+import axios from "axios";
 import {
 	Text,
 	Link,
@@ -10,12 +10,32 @@ import {
 	VStack,
 	Box,
 	Pressable,
-	Button
+	Button,
+	Input
 } from "native-base";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Home = ({ navigation }) => {
-	const [text, setText] = useState("")
+	const [user, setUser] = useState("")
+	const [pass, setPass] = useState("")
+
+
+	const auth = () => {		
+		
+		axios.post("http://127.0.0.1:3000/user/login" ,{
+			email: user,
+			contrasena: pass
+		}).then( ({data}) => {
+			console.log(data);
+			if(data.login){
+				console.log("bienvenido "+ data.nombre);
+				navigation.navigate('Demo')
+			}else{
+				alert("Usuario no valido");
+			}
+		})
+	}
+
 
 	return (
 		<NativeBaseProvider>
@@ -30,18 +50,17 @@ const Home = ({ navigation }) => {
 					<HStack space={2} alignItems="center">
 						<Text>Ingresa tu usuario</Text>
 					</HStack>
-					<TextInput
-						onChangeText={onChangeText}
-						value={text}
-					/>
+					<Input mx="3" placeholder="Correo" w="100%" onChangeText={text => setUser(text)}/>
+					
+					<Input mx="3" placeholder="Contraseña" w="100%" onChangeText={text => setPass(text)}/>
 					
 
-					<Button colorScheme="success" onPress={() => navigation.navigate('Demo')}>Ingresar</Button>
+					<Button colorScheme="success" onPress={() => auth() }>Ingresar</Button>
 					
 				</VStack>
 			</Center>
 		</NativeBaseProvider>
 	);
 }
-
+//navigation.navigate('Demo')
 export default Home;
