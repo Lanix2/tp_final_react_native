@@ -54,6 +54,8 @@ const Posts = () => {
         }).then( res => {
           console.log(res);
           get_datos()
+          setTitulo("")
+          setDesc("")
         })
       }
     }
@@ -90,8 +92,8 @@ const Posts = () => {
           <HStack space={2} alignItems="center">
 						<Text>Nueva publicación</Text>
 					</HStack>
-          <Input mx="3" placeholder="Título" w="100%" onChangeText={text => setTitulo(text)}/>
-          <Input mx="3" placeholder="Descripción" w="100%" onChangeText={text => setDesc(text)}/>
+          <Input value={titulo} mx="3" placeholder="Título" w="100%" onChangeText={text => setTitulo(text)}/>
+          <Input  value={desc} mx="3" placeholder="Descripción" w="100%" onChangeText={text => setDesc(text)}/>
 
           <Button colorScheme="success" onPress={() => set_datos()}>Agregar</Button>
 
