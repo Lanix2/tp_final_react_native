@@ -9,11 +9,14 @@ import {
   Input,
   Button,
   Text,
-  Box
+  Box,
+  FlatList,
+  Spacer,
+  Avatar
 } from "native-base";
 import { useState, useEffect } from "react";
 
-const Demo = () => {
+const Posts = () => {
     const [titulo, setTitulo] = useState("")
     const [desc, setDesc] = useState("")
     const [post, setPost] = useState([])
@@ -62,29 +65,42 @@ const Demo = () => {
           <Button colorScheme="success" onPress={() => set_datos()}>Agregar</Button>
 
           <Heading size="lg">Lista de publicaciones</Heading>
-          <Box>
-            {post.map( elem => 
-            <>
-              <Box alignSelf="center" // bg="primary.500"
-            _text={{
-              fontSize: "md",
-              fontWeight: "medium",
-              color: "black",
-              letterSpacing: "lg"
-            }}>
-                Titulo: {elem.titulo}
-              </Box>
-              <Box>
-                Descripción: {elem.descripcion}
-              </Box>
-            </>
-            )}
-            
-        </Box>
+          
+        <FlatList data={post} renderItem={({
+          item
+        }) => <Box borderBottomWidth="1" _dark={{
+          borderColor: "muted.50"
+        }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
+                <HStack space={[2, 3]} justifyContent="space-between">
+                <Avatar size="48px" source={{
+                  uri: "https://w7.pngwing.com/pngs/833/374/png-transparent-computer-icons-article-website-content-writer-publishing-search-engine-optimization-others-miscellaneous-angle-search-engine-optimization.png"
+                }} />
+                  <VStack>
+                    <Text _dark={{
+                color: "warmGray.50"
+              }} color="coolGray.800" bold>
+                      {item.titulo}
+                    </Text>
+                    <Text color="coolGray.600" _dark={{
+                color: "warmGray.200"
+              }}>
+                      {item.descripcion}
+                    </Text>
+                  </VStack>
+                  <Spacer />
+                  <Text fontSize="xs" _dark={{
+              color: "warmGray.50"
+            }} color="coolGray.800" alignSelf="flex-start">
+                    
+                  </Text>
+                </HStack>
+              </Box>} keyExtractor={item => item.id} />
+        
         </VStack>
       </Center>
+
     </NativeBaseProvider>
   );
 }
 
-export default Demo;
+export default Posts;

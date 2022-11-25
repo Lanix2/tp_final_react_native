@@ -15,7 +15,7 @@ import {
 } from "native-base";
 import { useState, useEffect } from "react";
 
-const Home = ({ navigation }) => {
+const Login = ({ navigation }) => {
 	const [user, setUser] = useState("")
 	const [pass, setPass] = useState("")
 
@@ -29,7 +29,7 @@ const Home = ({ navigation }) => {
 			console.log(data);
 			if(data.login){
 				console.log("bienvenido "+ data.nombre);
-				navigation.navigate('Demo')
+				navigation.navigate('Posts')
 			}else{
 				alert("Usuario no valido");
 			}
@@ -63,4 +63,4 @@ const Home = ({ navigation }) => {
 	);
 }
 //navigation.navigate('Demo')
-export default Home;
+export default Login;

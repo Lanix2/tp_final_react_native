@@ -1,7 +1,7 @@
-import Home from './Home';
-import Demo from './Demo';
+import Login from './Login';
+import Posts from './Posts';
 
 export {
-    Home,
-    Demo
+    Login,
+    Posts
 }

@@ -1,3 +1,8 @@
+## Usuario de prueba
+
+usuario: cali@gmail.com
+Contraseña: 123
+
 ## Uso
 
 Clonamos el repositorio:
