@@ -57,6 +57,7 @@ const Login = ({ navigation }) => {
 				px={4}
 				flex={1}
 			>
+				
 				<Collapse isOpen={show}>
 					<Alert w="100%" status="error">
 						<VStack space={2} flexShrink={1} w="100%">

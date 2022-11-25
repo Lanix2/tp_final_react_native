@@ -12,7 +12,11 @@ import {
   Box,
   FlatList,
   Spacer,
-  Avatar
+  Avatar,
+  Alert,
+	IconButton,
+	CloseIcon,
+	Collapse
 } from "native-base";
 import { useState, useEffect } from "react";
 
@@ -20,6 +24,8 @@ const Posts = () => {
     const [titulo, setTitulo] = useState("")
     const [desc, setDesc] = useState("")
     const [post, setPost] = useState([])
+    const [error, setError] = useState("")
+    const [show, setShow] = useState(false)
 
     const get_datos = () => {
         axios.get( "http://127.0.0.1:3000/news/get_news").then( ({data}) => {
@@ -34,7 +40,13 @@ const Posts = () => {
 
     const set_datos= () => {
       if(titulo == "" || desc == ""){
-        alert("datos vacios")
+        //alert("datos vacios")
+        setShow(true)
+				setError("Datos vacíos")
+				setTimeout(() => {
+					setShow(false)
+					setError("")
+				}, 5000);
       }else{
         axios.post("http://127.0.0.1:3000/news/post_news" ,{
           titulo: titulo,
@@ -54,6 +66,25 @@ const Posts = () => {
         px={4}
         flex={1}
       >
+        <Collapse isOpen={show}>
+					<Alert w="100%" status="error">
+						<VStack space={2} flexShrink={1} w="100%">
+						<HStack flexShrink={1} space={2} justifyContent="space-between">
+							<HStack space={2} flexShrink={1}>
+							<Alert.Icon mt="1" />
+							<Text fontSize="md" color="coolGray.800">
+								{error}
+							</Text>
+							</HStack>
+							<IconButton variant="unstyled" _focus={{
+						borderWidth: 0
+						}} icon={<CloseIcon size="3" />} _icon={{
+						color: "coolGray.600"
+						}} />
+						</HStack>
+						</VStack>
+					</Alert>
+				</Collapse>
         <VStack space={5} alignItems="center">
           <Heading size="lg">Publicaciones</Heading>
           <HStack space={2} alignItems="center">
