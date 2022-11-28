@@ -18,12 +18,12 @@ import {
 	Collapse
 } from "native-base";
 import { useState, useEffect } from "react";
+import AlertCustom from '../components/Alert'
 
 const Login = ({ navigation }) => {
 	const [user, setUser] = useState("")
-	const [error, setError] = useState("")
 	const [pass, setPass] = useState("")
-	const [show, setShow] = useState(false)
+	const [alerta, setAlerta] = useState({msg: "", tipo: ""})
 
 
 	const auth = () => {		
@@ -38,12 +38,8 @@ const Login = ({ navigation }) => {
 				navigation.navigate('Posts')
 			}else{
 				//alert("Usuario no valido");
-				setShow(true)
-				setError("Usuario inválido")
-				setTimeout(() => {
-					setShow(false)
-					setError("")
-				}, 5000);
+				setAlerta({msg: "Usuario inválido", tipo: ""})
+				
 			}
 		})
 	}
@@ -57,26 +53,8 @@ const Login = ({ navigation }) => {
 				px={4}
 				flex={1}
 			>
+				<AlertCustom msg = {alerta.msg} tipo = {alerta.tipo}  />
 				
-				<Collapse isOpen={show}>
-					<Alert w="100%" status="error">
-						<VStack space={2} flexShrink={1} w="100%">
-						<HStack flexShrink={1} space={2} justifyContent="space-between">
-							<HStack space={2} flexShrink={1}>
-							<Alert.Icon mt="1" />
-							<Text fontSize="md" color="coolGray.800">
-								{error}
-							</Text>
-							</HStack>
-							<IconButton variant="unstyled" _focus={{
-						borderWidth: 0
-						}} icon={<CloseIcon size="3" />} _icon={{
-						color: "coolGray.600"
-						}} />
-						</HStack>
-						</VStack>
-					</Alert>
-				</Collapse>
 				<VStack space={5} alignItems="center">
 					<Heading size="lg">¡Bienvenido!</Heading>
 					<HStack space={2} alignItems="center">

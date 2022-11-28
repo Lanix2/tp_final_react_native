@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react"
 
-import {Alert,
+import {
+    Alert,
 	IconButton,
 	CloseIcon,
-	Collapse} from 'native-base'
+	Collapse
+    ,VStack
+    ,HStack
+    ,Text
+} from 'native-base'
 
-const Alert = (msg, tipo = "error") => {
+const AlertCustom = ({msg, tipo} ) => {
     const [texto, setTexto] = useState("")
-    const [clase, setClase] = useState("error")
+    const [clase, setClase] = useState("")
     const [show, setShow] = useState(false)
 
+    console.log(tipo)
     useEffect( () => {
-        setShow(true)
-        setTexto(texto)
-        setClase(tipo)
-        setTimeout(() => {
-            setShow(false)
-            setTexto("")
-            setClase("")
-        }, 5000);
-    }, [texto])
+        if(msg !== ""){
+            setShow(true)
+            setTexto(msg)
+            setClase(tipo ? tipo : "error")
+            setTimeout(() => {
+                setShow(false)
+            }, 5000);
+        }
+        
+    }, [msg])
 
 
     return(
@@ -46,4 +53,4 @@ const Alert = (msg, tipo = "error") => {
 }
 
 
-export default Alert
+export default AlertCustom
